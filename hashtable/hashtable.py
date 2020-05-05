@@ -17,10 +17,12 @@ class HashTable:
     Implement this.
     """
     def __init__(self, size):
+        self.capacity = size
         self.storage = [None] * size;
 
     def fnv1(self, key):
         hval = 0x811c9dc5
+        
         fnv_32_prime = 0x01000193
         uint32_max = 2 ** 32
         for s in key:
@@ -41,10 +43,11 @@ class HashTable:
         between within the storage capacity of the hash table.
         """
         #return self.fnv1(key) % self.capacity
-        return self.djb2(key) % self.capacity
+        return self.fnv1(key) % self.capacity
 
     def put(self, key, value):
-       
+        print(self.hash_index(key))
+        self.storage[self.hash_index(key)] = (key,value)
     def delete(self, key):
         """
         Remove the value stored with the given key.
