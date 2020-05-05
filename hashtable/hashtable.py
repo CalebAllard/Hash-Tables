@@ -16,13 +16,17 @@ class HashTable:
 
     Implement this.
     """
+    def __init__(self, size):
+        self.storage = [None] * size;
 
     def fnv1(self, key):
-        """
-        FNV-1 64-bit hash function
-
-        Implement this, and/or DJB2.
-        """
+        hval = 0x811c9dc5
+        fnv_32_prime = 0x01000193
+        uint32_max = 2 ** 32
+        for s in key:
+            hval = hval ^ ord(s)
+            hval = (hval * fnv_32_prime) % uint32_max
+        return hval
 
     def djb2(self, key):
         """
@@ -40,14 +44,7 @@ class HashTable:
         return self.djb2(key) % self.capacity
 
     def put(self, key, value):
-        """
-        Store the value with the given key.
-
-        Hash collisions should be handled with Linked List Chaining.
-
-        Implement this.
-        """
-
+       
     def delete(self, key):
         """
         Remove the value stored with the given key.
